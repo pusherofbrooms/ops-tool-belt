@@ -5,6 +5,8 @@ The goal of this repo is to provide a fast mechanism to deploy the standard ops 
 1. enable nix flakes and experimental tooling. Follow the instructions at https://nixos.wiki/wiki/Flakes#Permanent You may need to re-login or reboot for the changes take effect.
 1. Run `nix profile install .` to install the packages.
 
+Note the presence of the `flake.lock` file. This file is similar to the gem lock file in ruby or the cargo lock file in rust which pins your packages to a specific commit for repeatibility. If you desire to update your packages, you will need to run `nix flake update` and then `nix profile upgrade`. Note that the flake.lock file is checked in, so you will have merge conflicts if you update it.
+
 # Sharp Edges
 The Nix Package Manager does things a bit differently than homebrew or other package managers. This can cause surprising behavior for the uninitiated.
 

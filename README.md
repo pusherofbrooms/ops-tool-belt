@@ -26,3 +26,9 @@ Nix has many features which offset some of the Sharp Edges.
   * Nix can produce repeatable builds of software. When you use flakes, a `flake.lock` file is created which pins versions to a specific commit. This means when you pass around a flake to your peers, they can be assured that they are using the same version of software as you, built in the same way with the same set of dependencies.
   * Nix allows you to roll back. When you install, remove, or modify packages, Nix keeps track of every action (with symlinks). You can use `nix profile history` to see all of the changes to your system. You can use `nix profile rollback` to go back to the previous revision or an arbitrary revision.
   * If you go all-in on NixOS, you can define all of the behavior of your system in one file. You can also use [home-manager](https://github.com/nix-community/home-manager) to control all of your dot-files and personal lists of packages. With flakes, you could put all of this configuration into one file (or group of imported files), which can be checked into source control.
+
+# TODO
+
+1. Add bosh-cli to the package list. This requires learning how to patch a build since we want 3 year ssl certs from bosh.
+1. Add more tools.
+1. Process for updating and testing. Terraform is especially sensitive here.

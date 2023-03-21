@@ -36,6 +36,7 @@
               cloudfoundry-cli
               direnv
               dos2unix
+              fzf
               gawk
               getopt
               git

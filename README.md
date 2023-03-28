@@ -29,6 +29,5 @@ Nix has many features which offset some of the Sharp Edges.
 
 # TODO
 
-1. Add bosh-cli to the package list. This requires learning how to patch a build since we want 3 year ssl certs from bosh.
 1. Add more tools.
 1. Process for updating and testing. Terraform is especially sensitive here.

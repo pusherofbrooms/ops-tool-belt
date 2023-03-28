@@ -14,15 +14,22 @@
   # We use the latest nixpkgs release as well as an external
   # flakes utility tool set as inputs.
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
   
   outputs = { self, nixpkgs, flake-utils, ... }:
     # eachDefaultSystem allows us to use this under Darwin and linux
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system}; in
-      {
+      let pkgs = nixpkgs.legacyPackages.${system};
+          hsp-bosh-cli = pkgs.bosh-cli.overrideAttrs (oldAttrs: rec {
+            version = oldAttrs.version;
+            postPatch = ''
+            substituteInPlace cmd/version.go --replace '[DEV BUILD]' 'hsdp-${version}'
+            substituteInPlace vendor/github.com/cloudfoundry/config-server/types/certificate_generator.go --replace '(365' '(1095'
+          '';
+          });
+      in {
         packages = {
           # default must be set to a "derivation".
           default = self.packages.${system}.stdPkgs;
@@ -33,6 +40,7 @@
             paths = with pkgs; [
               awscli2
               bats
+              hsp-bosh-cli
               cloudfoundry-cli
               direnv
               dos2unix

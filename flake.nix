@@ -53,6 +53,7 @@
               htop
               jq
               kubectl
+              nmap
               pwgen
               ripgrep
               terraform

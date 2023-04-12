@@ -42,6 +42,7 @@
               bats
               hsp-bosh-cli
               cloudfoundry-cli
+              credhub-cli
               direnv
               dos2unix
               fzf

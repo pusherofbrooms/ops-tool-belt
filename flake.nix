@@ -21,14 +21,18 @@
   outputs = { self, nixpkgs, flake-utils, ... }:
     # eachDefaultSystem allows us to use this under Darwin and linux
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
-          hsp-bosh-cli = pkgs.bosh-cli.overrideAttrs (oldAttrs: rec {
-            version = oldAttrs.version;
-            postPatch = ''
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        hsp-bosh-cli = pkgs.bosh-cli.overrideAttrs (oldAttrs: rec {
+          version = oldAttrs.version;
+          postPatch = ''
             substituteInPlace cmd/version.go --replace '[DEV BUILD]' 'hsdp-${version}'
             substituteInPlace vendor/github.com/cloudfoundry/config-server/types/certificate_generator.go --replace '(365' '(1095'
           '';
-          });
+        });
       in {
         packages = {
           # default must be set to a "derivation".
